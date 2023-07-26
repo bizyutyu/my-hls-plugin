@@ -1,17 +1,23 @@
-{-# LANGUAGE CPP                       #-}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE OverloadedStrings         #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 module HlsPlugins where
 
-import           Development.IDE.Types.Logger      (Pretty (pretty), Recorder,
-                                                    WithPriority, cmapWithPrio)
-import           Ide.PluginUtils                   (pluginDescToIdePlugins)
-import           Ide.Types                         (IdePlugins,
-                                                    PluginId (PluginId))
-
 -- fixed plugins
-import           Development.IDE                   (IdeState)
+import Development.IDE (IdeState)
 import qualified Development.IDE.Plugin.HLS.GhcIde as GhcIde
+import Development.IDE.Types.Logger
+  ( Pretty (pretty),
+    Recorder,
+    WithPriority,
+    cmapWithPrio,
+  )
+import Ide.PluginUtils (pluginDescToIdePlugins)
+import Ide.Types
+  ( IdePlugins,
+    PluginId (PluginId),
+  )
 
 -- haskell-language-server optional plugins
 #if hls_qualifyImportedNames
@@ -100,6 +106,10 @@ import qualified Ide.Plugin.ExplicitFixity         as ExplicitFixity
 import qualified Ide.Plugin.ExplicitFields         as ExplicitFields
 #endif
 
+#if hls_magicFuncAssistant
+import qualified Ide.Plugin.MagicFuncAssistant        as MagicFuncAssistant
+#endif
+
 -- formatters
 
 #if hls_floskell
@@ -141,7 +151,6 @@ instance Pretty Log where
 -- server.
 -- These can be freely added or removed to tailor the available
 -- features of the server.
-
 idePlugins :: Recorder (WithPriority Log) -> IdePlugins IdeState
 idePlugins recorder = pluginDescToIdePlugins allPlugins
   where
@@ -234,10 +243,13 @@ idePlugins recorder = pluginDescToIdePlugins allPlugins
       let pId = "ghcide-extend-import-action" in Refactor.extendImportPluginDescriptor (pluginRecorder pId) pId :
 #endif
       GhcIde.descriptors (pluginRecorder "ghcide")
+
 #if explicitFixity
       ++ [let pId = "explicit-fixity" in ExplicitFixity.descriptor (pluginRecorder pId) pId]
 #endif
 #if explicitFields
       ++ [let pId = "explicit-fields" in ExplicitFields.descriptor (pluginRecorder pId) pId]
 #endif
-
+#if hls_magicFuncAssistant
+      ++ [let pId = "magicFunc" in MagicFuncAssistant.descriptor (pluginRecorder pId) pId]
+#endif
