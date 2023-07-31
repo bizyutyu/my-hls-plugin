@@ -46,5 +46,5 @@ result-doc
 out/
 store/
 
-#高倉が追記
+#logFile of magicFuncAssistant
 Hashlog.txt
