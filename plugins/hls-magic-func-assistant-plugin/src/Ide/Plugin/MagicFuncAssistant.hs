@@ -47,17 +47,16 @@ import Data.String (fromString)
 import Data.String.ToString (ToString (toString))
 import qualified Data.String.ToString as ST
 import qualified Data.Text as T
+import Data.Time
 import Development.IDE hiding
   ( pluginHandlers,
     pluginRules,
   )
-import qualified Development.IDE as TcModuleParsed
 import qualified Development.IDE as TypeCheck
 import Development.IDE.Core.PositionMapping
 import qualified Development.IDE.Core.Shake as Shake
 import Development.IDE.GHC.Compat
 import qualified Development.IDE.GHC.Compat as ParsedModule
-import qualified Development.IDE.GHC.Compat as TypeCheck
 import Development.IDE.Graph.Classes
 import Development.IDE.Types.Logger as Logger (Pretty (pretty))
 import GHC.Generics (Generic)
@@ -70,9 +69,11 @@ import System.IO
 import System.IO.Error (catchIOError)
 import Text.HTML.TagSoup
 
---import           MagicHaskeller.ExpToHtml
---import Language.Haskell.Parser
---import Language.Haskell.Syntax
+-- import qualified Development.IDE.GHC.Compat as TypeCheck
+-- import qualified Development.IDE as TcModuleParsed
+-- import           MagicHaskeller.ExpToHtml
+-- import Language.Haskell.Parser
+-- import Language.Haskell.Syntax
 
 mtCommandId :: CommandId
 mtCommandId = "MagicTesterCommand"
@@ -243,10 +244,14 @@ mhEdit posMapping (L (locA -> src) _, body) hMap
     RealSrcSpan l _ <- src,
     Just rng <- toCurrentRange posMapping $ realSrcSpanToRange l =
     do
+      -- x <- getCurrentTime
       let msg = ST.toString body
           funcname = head $ words msg
           ckmsg = checkMsg msg
       (resulttext, newhMap) <- magichaskeller ckmsg hMap
+      -- y <- getCurrentTime
+      -- let time = diffUTCTime y x
+      --     resultText = show time ++ resulttext
       return (mkRcvToEdit rng funcname resulttext, newhMap)
   | otherwise = return (Nothing, hMap)
 
@@ -268,11 +273,7 @@ generateLens pId uri funcEdit@TextEdit {_range, _newText} = do
   -- create and return the code lens
   return $ Just CodeLens {..}
 
--- This number is somewhat arbitrarily chosen. Ideally the protocol would tell us these things,
--- but at the moment I don't believe we know it.
--- 80 columns is traditional, but Haskellers tend to use longer lines (citation needed) and it's
--- probably not too bad if the lens is a *bit* longer than normal lines.
--- でも一旦80にする。
+-- 1つのコードレンズの幅最大値
 maxColumns :: Int
 maxColumns = 80
 
@@ -360,8 +361,8 @@ instance Read PortID where
 defaultConfig :: Config
 defaultConfig =
   C
-    { portID = PortNumber 55443,
-      hostname = "133.54.228.36"
+    { portID = PortNumber (ポート番号が入る :: Int),
+      hostname = "ホストIPが入る"
     }
 
 magichaskeller :: String -> HashMap.HashMap String String -> IO (String, HashMap.HashMap String String)
@@ -437,7 +438,3 @@ removeHeadTail str = ST.toString $ init $ drop 1 $ dropWhile (/= '>') $ toList s
 -- dropWhile' p (x : xs)
 --   | p x = x : dropWhile' p xs
 --   | otherwise = []
-
-takakura 5 = 120
-
-nakane "abc" 2 = "aabbcc"
