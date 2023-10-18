@@ -1,36 +1,18 @@
-# haskell-language-server
+# my-hls-plugin
+
+学生の時に開発したHaskell Language Server（以後HLS）のプラグインを 公開する為だけのリポジトリ。
+帰納関数プログラミングシステム [MagicHaskeller](https://nautilus.cs.miyazaki-u.ac.jp/%7Eskata/MagicHaskeller.html/) を立てたサーバーと通信することで、入出力例から関数を [コードレンズ](https://learn.microsoft.com/en-us/visualstudio/ide/find-code-changes-and-other-history-with-codelens?view=vs-2022/) として提案する。MagicHaskellerが凄い。
+git clone しても、サーバーIPとポート番号が設定されていない為、そのままビルドしても動かない。まさに公開用。
+
+## bizyutyu が追加・変更した部分
+- plugins/hls-magic-func-assistant-plugin/
+- haskell-language-server.cabal
+- cabal.project
+
+##関連ツールのバージョン
+
+- 対象HLSバージョン : 1.9.0.0
+- cabalバージョン : 3.6.2.0
+- ghcバージョン : 8.10.7
 
 ![haskell-language-server][logo]
-
-
-[![Release][badge-github-release]][github-release]
-[![Hackage][badge-hackage]][hackage]
-[![License Apache 2.0][badge-license]][license]
-[![CircleCI][badge-circleci]][circleci]
-[![GitHub Testing Workflow](https://github.com/haskell/haskell-language-server/actions/workflows/test.yml/badge.svg)](https://github.com/haskell/haskell-language-server/actions/workflows/test.yml)
-[![GitHub Nix Workflow](https://github.com/haskell/haskell-language-server/actions/workflows/nix.yml/badge.svg)](https://github.com/haskell/haskell-language-server/actions/workflows/nix.yml)
-[![ircchat][badge-ircchat]][ircchat]
-[![codetriage][badge-codetriage]][codetriage]
-
-[logo]: ./docs/logos/logo-256.png
-[badge-license]: https://img.shields.io/badge/license-Apache2-green.svg?dummy
-[license]: https://github.com/haskell/haskell-language-server/blob/master/LICENSE
-[badge-circleci]: https://img.shields.io/circleci/project/github/haskell/haskell-language-server/master.svg
-[circleci]: https://circleci.com/gh/haskell/haskell-language-server/
-[badge-hackage]: https://img.shields.io/hackage/v/haskell-language-server.svg?logo=haskell
-[badge-github-release]:https://img.shields.io/github/v/release/haskell/haskell-language-server.svg
-[hackage]: https://hackage.haskell.org/package/haskell-language-server
-[badge-codetriage]: https://www.codetriage.com/haskell/haskell-language-server/badges/users.svg
-[codetriage]:https://www.codetriage.com/haskell/haskell-language-server
-[badge-ircchat]:https://img.shields.io/badge/chat-on%20libera-brightgreen.svg
-[ircchat]:https://web.libera.chat/?channels=#haskell-language-server
-[github-release]:https://github.com/haskell/haskell-language-server/releases/latest
-
-The official Haskell language server (LSP) implementation. Consult the [project documentation](https://haskell-language-server.readthedocs.io/en/latest/) for more details.
-
-- [Features](https://haskell-language-server.readthedocs.io/en/latest/features.html)
-- [Installation](https://haskell-language-server.readthedocs.io/en/latest/installation.html)
-- [Supported GHC Versions](https://haskell-language-server.readthedocs.io/en/latest/support/ghc-version-support.html)
-- [Configuration](https://haskell-language-server.readthedocs.io/en/latest/configuration.html)
-- [Troubleshooting](https://haskell-language-server.readthedocs.io/en/latest/troubleshooting.html)
-- [Contributing](https://haskell-language-server.readthedocs.io/en/latest/contributing/index.html)

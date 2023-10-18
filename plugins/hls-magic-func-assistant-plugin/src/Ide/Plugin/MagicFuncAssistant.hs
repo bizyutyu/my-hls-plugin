@@ -128,16 +128,13 @@ runImportCommand _state (MTCommandParams edit) = do
   _ <- sendRequest SWorkspaceApplyEdit (ApplyWorkspaceEditParams Nothing edit) (\_ -> pure ())
   return (Right Null)
 
--- | For every implicit import statement, return a code lens of the corresponding explicit import
--- Example - for the module below:
+-- | For I/O example, return a code lens of the corresponding explicit import
+-- Example - for the function below:
 --
--- > import Data.List
+-- > fanction 5 = 1 * 2 * 3 * 4 * 5
 -- >
--- > f = intercalate " " . sortBy length
---
--- the provider should produce one code lens associated to the import statement:
---
--- > import Data.List (intercalate, sortBy)
+-- > suggestion
+-- > f = \a -> product[1..a]
 lensProvider :: PluginMethodHandler IdeState TextDocumentCodeLens
 lensProvider
   state -- ghcide state, used to retrieve typechecking artifacts
@@ -361,8 +358,8 @@ instance Read PortID where
 defaultConfig :: Config
 defaultConfig =
   C
-    { portID = PortNumber (ポート番号が入る :: Int),
-      hostname = "ホストIPが入る"
+    { portID = PortNumber (ポート番号 :: Int),
+      hostname = "ホストIP"
     }
 
 magichaskeller :: String -> HashMap.HashMap String String -> IO (String, HashMap.HashMap String String)
