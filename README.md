@@ -14,5 +14,3 @@ git clone しても、サーバーIPとポート番号が設定されていな�
 - 対象HLSバージョン : 1.9.0.0
 - cabalバージョン : 3.6.2.0
 - ghcバージョン : 8.10.7
-
-![haskell-language-server][logo]
