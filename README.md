@@ -10,8 +10,8 @@ git clone しても、サーバーIPとポート番号が設定されていな�
 - haskell-language-server.cabal
 - cabal.project
 
-## 関連ツールのバージョン
-- Ubuntuバージョン : 22.04
-- 対象HLSバージョン : 1.9.0.0
-- cabalバージョン : 3.6.2.0
-- ghcバージョン : 8.10.7
+## 関連ツールとバージョン
+- Ubuntu : 22.04
+- Haskell Language Server : 1.9.0.0
+- cabal : 3.6.2.0
+- ghc : 8.10.7

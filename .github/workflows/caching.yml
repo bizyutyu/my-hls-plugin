@@ -31,7 +31,7 @@ on:
   push:
     branches:
       - master
-  schedule:
+  # schedule:
     # Refresh snapshot every (02+8*x):25 UTC
     # When cache is present it is a light check workflow with early termination.
     # When primary cache is not hit - runs the cache generation.
@@ -42,7 +42,7 @@ on:
     #   which implies all PRs would start to create & save their cache.
     # Reinstitution of the main chache puts it back into FIFO
     #   & so it gets shared across all PRs.
-    - cron: "25 2/8 * * *"
+    # - cron: "25 2/8 * * *"
 
 # Not using a explicit target to build the top level haskell-language-server package
 # which make build the rest of subpackages *libs* (but shake-bench)
